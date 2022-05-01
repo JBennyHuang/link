@@ -12,12 +12,16 @@ import { Dialect } from "sequelize";
 import crypto from "crypto";
 import { Strategy as LocalStrategy } from "passport-local";
 import { User, UserNotFoundError, UserIncorrectPasswordError } from "./models/user";
+import cors from "cors";
 
 dotenv.config();
 
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
+
+// cors
+app.use(cors());
 
 // express
 app.use(express.json());
