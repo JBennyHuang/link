@@ -24,7 +24,6 @@ router.post("/send", isValid(MessageSendBodySchema), isAuthenticated, async (req
         content: req.body.content,
         timestamp: Date.now(),
       });
-
       userRoom.addMessage(message);
       res.status(201).json(message);
     }
