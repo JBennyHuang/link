@@ -1,27 +1,39 @@
 import { JSONSchemaType } from "ajv";
 
 interface RoomJoinBody {
-  roomUUID: string;
+  uuid: string;
 }
 
 interface RoomLeaveBody {
-  roomUUID: string;
+  uuid: string;
 }
+
+interface RoomCreateBody {
+  name: string;
+}
+
+const RoomCreateBodySchema: JSONSchemaType<RoomCreateBody> = {
+  type: "object",
+  required: ["name"],
+  properties: {
+    name: { type: "string" },
+  },
+};
 
 const RoomJoinBodySchema: JSONSchemaType<RoomJoinBody> = {
   type: "object",
-  required: ["roomUUID"],
+  required: ["uuid"],
   properties: {
-    roomUUID: { type: "string" },
+    uuid: { type: "string" },
   },
 };
 
 const RoomLeaveBodySchema: JSONSchemaType<RoomLeaveBody> = {
   type: "object",
-  required: ["roomUUID"],
+  required: ["uuid"],
   properties: {
-    roomUUID: { type: "string" },
+    uuid: { type: "string" },
   },
 };
 
-export { RoomJoinBodySchema, RoomLeaveBodySchema };
+export { RoomJoinBodySchema, RoomLeaveBodySchema, RoomCreateBodySchema };

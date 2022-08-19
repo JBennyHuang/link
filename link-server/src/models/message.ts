@@ -1,34 +1,44 @@
-import { Sequelize, Model, DataTypes, CreationOptional } from "sequelize";
+import { Sequelize, Model, DataTypes, CreationOptional, BelongsToSetAssociationMixin } from "sequelize";
+import { Friend } from "./friend";
+import { Room } from "./room";
+import { User } from "./user";
 
 class Message extends Model {
   declare id: CreationOptional<number>;
-  declare roomId: string;
-  declare userId: string;
   declare content: string;
-  declare timestamp: number;
+  declare uuid: string;
+  declare username: string;
+
+  declare RoomId: number;
+  declare Room: Room;
+  declare setRoom: BelongsToSetAssociationMixin<Room, number>;
+
+  declare FriendId: number;
+  declare Friend: Friend;
+  declare setFriend: BelongsToSetAssociationMixin<Friend, number>;
+
+  declare UserId: number;
+  declare User: User;
+  declare setUser: BelongsToSetAssociationMixin<User, number>;
 }
 
 const initializeMessageModel = (sequelize: Sequelize) => {
   return Message.init(
     {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-      },
-      userRoomId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
       content: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      timestamp: {
-        type: DataTypes.INTEGER,
+      username: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      uuid: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },
+
     { sequelize }
   );
 };

@@ -1,14 +1,14 @@
-import axios from "axios";
-
-import { useRef } from "react";
-import { useAuthentication } from "../context/AuthenticationContext";
+import { useRef, useState } from "react";
+import { useAuth } from "../context/AuthenticationContext";
 import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const authContext = useAuthentication();
+  const authContext = useAuth();
   const navigate = useNavigate();
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const [error, setError] = useState<boolean>(false);
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
@@ -26,6 +26,7 @@ const Register = () => {
           if (err.message === "Request failed with status code 409") {
             // change ui to let user know
             console.log("username taken");
+            setError(true);
           } else {
             console.log("don't know");
           }
@@ -36,27 +37,35 @@ const Register = () => {
 
   return (
     <div className="text-center">
-      <div className="bg-zinc-800 h-screen text-white flex flex-col items-center justify-center text-[24px]">
-        <div className="flex flex-col items-center border rounded-lg py-[10rem] px-[3rem]">
-          <div className="flex mb-10">
-            <p className="font-bold text-[40px]">asian</p>
-            <p className="font-bold text-[40px] text-amber-300">convo</p>
-          </div>
+      <div className="bg">
+        <h1 className="text-[30px] mb-5">
+          asian<span className="text-amber-300">convo</span>
+        </h1>
+        <div className="flex flex-col items-center border rounded-lg py-[2rem] px-[1.5rem]">
+          <h1 className="p-10 flex flex-col">
+            <p className="text-[28px] mb-3">Register</p>
+            <p className="text-[12px]">
+              and start texting your asian{" "}
+              <span className="text-amber-300">friend</span>.
+            </p>
+          </h1>
+          {error ? (
+            <h1 className="text-red-500 text-[12px] mb-10">Username Taken</h1>
+          ) : null}
           <form
             action=""
-            className="flex flex-col text-[20px]"
+            className="flex flex-col text-[16px]"
             onSubmit={handleSubmit}
           >
-            <h1 className="mb-10">Become asian !</h1>
             <input
               type="text"
-              className="border-2 border-gray-400 rounded-lg bg-zinc-900 p-2 focus:outline focus:outline-amber-400 mb-10"
+              className="auth-input"
               placeholder="Username"
               ref={usernameRef}
             />
             <input
               type="password"
-              className="border-2 border-gray-400 rounded-lg bg-zinc-900 p-2 focus:outline focus:outline-amber-400 mb-10"
+              className="auth-input"
               placeholder="Password"
               ref={passwordRef}
             />
@@ -68,10 +77,13 @@ const Register = () => {
                 Register
               </button>
             </div>
-            <p className="text-amber-300 mr-auto mt-5">
+          </form>
+          <div className="text-[12px] flex p-10">
+            Already have an account?
+            <p className="text-amber-300 ml-1">
               <Link to={"/login"}>Login</Link>
             </p>
-          </form>
+          </div>
         </div>
       </div>
     </div>

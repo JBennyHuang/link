@@ -9,7 +9,7 @@ import {
 import { User } from "./user";
 import { Message } from "./message";
 
-class Room extends Model {
+class Friend extends Model {
   declare id: CreationOptional<number>;
   declare uuid: string;
   declare name: string;
@@ -22,12 +22,13 @@ class Room extends Model {
   declare addMessage: BelongsToManyAddAssociationMixin<Message, number>;
 }
 
-const initializeRoomModel = (sequelize: Sequelize) => {
-  return Room.init(
+const initializeFriendModel = (sequelize: Sequelize) => {
+  return Friend.init(
     {
       name: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
       },
       uuid: {
         type: DataTypes.STRING,
@@ -39,4 +40,4 @@ const initializeRoomModel = (sequelize: Sequelize) => {
   );
 };
 
-export { initializeRoomModel, Room };
+export { initializeFriendModel, Friend };

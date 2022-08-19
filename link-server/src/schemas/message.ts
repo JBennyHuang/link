@@ -1,17 +1,29 @@
 import { JSONSchemaType } from "ajv";
 
 interface MessageSendBody {
-  roomUUID: string;
+  uuid: string;
   content: string;
+}
+
+interface MessageGetQuery {
+  uuid: string;
 }
 
 const MessageSendBodySchema: JSONSchemaType<MessageSendBody> = {
   type: "object",
-  required: ["roomUUID", "content"],
+  required: ["uuid", "content"],
   properties: {
-    roomUUID: { type: "string" },
+    uuid: { type: "string" },
     content: { type: "string" },
   },
 };
 
-export { MessageSendBodySchema };
+const MessageGetQuerySchema: JSONSchemaType<MessageGetQuery> = {
+  type: "object",
+  required: ["uuid"],
+  properties: {
+    uuid: { type: "string" },
+  },
+};
+
+export { MessageSendBodySchema, MessageGetQuerySchema };

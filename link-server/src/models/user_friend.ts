@@ -8,17 +8,17 @@ import {
 } from "sequelize";
 import { Message } from "./message";
 
-class UserRoom extends Model {
+class UserFriend extends Model {
   declare id: CreationOptional<number>;
   declare userId: number;
-  declare roomId: number;
+  declare friendId: number;
   declare Messages: Message[];
   declare addMessage: HasManyAddAssociationMixin<Message, number>;
   declare removeMessage: HasManyRemoveAssociationMixin<Message, number>;
 }
 
-const initializeUserRoomModel = (sequelize: Sequelize) => {
-  return UserRoom.init({}, { sequelize });
+const initializeUserFriendModel = (sequelize: Sequelize) => {
+  return UserFriend.init({}, { sequelize });
 };
 
-export { initializeUserRoomModel, UserRoom };
+export { initializeUserFriendModel, UserFriend };

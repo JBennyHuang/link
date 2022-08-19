@@ -1,44 +1,35 @@
-import { Sequelize, Model, DataTypes, CreationOptional } from "sequelize";
-
-class UserAlreadyExistsError extends Error {
-  constructor(username: string) {
-    super();
-    this.name = "UserAlreadyExistsError";
-    this.message = `User with name ${username} already exists`;
-  }
-}
-
-class UserNotFoundError extends Error {
-  constructor(username: string) {
-    super();
-    this.name = "UserNotFoundError";
-    this.message = `User ${username} not found`;
-  }
-}
-
-class UserIncorrectPasswordError extends Error {
-  constructor(username: string) {
-    super();
-    this.name = "UserIncorrectPasswordError";
-    this.message = `User ${username} incorrect password`;
-  }
-}
+import {
+  Sequelize,
+  Model,
+  DataTypes,
+  CreationOptional,
+  BelongsToManyAddAssociationMixin,
+  BelongsToManyRemoveAssociationMixin,
+} from "sequelize";
+import { Room } from "../models/room";
+import { Friend } from "./friend";
+import { Message } from "../models/message";
 
 class User extends Model {
   declare id: CreationOptional<number>;
   declare username: string;
   declare passwordSalt: string;
   declare passwordHash: string;
+
+  declare Rooms: Room[];
+  declare addRoom: BelongsToManyAddAssociationMixin<Room, number>;
+  declare removeRoom: BelongsToManyRemoveAssociationMixin<Room, number>;
+
+  declare Friends: Friend[];
+  declare addFriend: BelongsToManyAddAssociationMixin<Friend, number>;
+  declare removeFriend: BelongsToManyRemoveAssociationMixin<Friend, number>;
+
+  declare Messages: Message[];
 }
 
 const initializeUserModel = (sequelize: Sequelize) => {
   return User.init(
     {
-      id: {
-        type: DataTypes.INTEGER,
-        primaryKey: true,
-        autoIncrement: true,
-      },
       username: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -57,4 +48,4 @@ const initializeUserModel = (sequelize: Sequelize) => {
   );
 };
 
-export { initializeUserModel, User, UserAlreadyExistsError, UserNotFoundError, UserIncorrectPasswordError };
+export { initializeUserModel, User };

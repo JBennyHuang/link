@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const MainMenu = () => {
+const MainPage = () => {
   return (
     <div className="text">
       <div className="bg-zinc-800 h-screen text-white flex flex-col items-center justify-center text-[24px]">
@@ -17,4 +17,4 @@ const MainMenu = () => {
   );
 };
 
-export default MainMenu;
+export default MainPage;

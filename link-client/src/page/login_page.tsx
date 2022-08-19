@@ -1,31 +1,33 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthentication } from "../context/AuthenticationContext";
+import { useAuth } from "../context/AuthenticationContext";
 
 const Login = () => {
-  const authContext = useAuthentication();
+  const authContext = useAuth();
   const navigate = useNavigate();
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
+  const [error, setError] = useState<boolean>(false);
+
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
+
     if (usernameRef.current && passwordRef.current) {
       const username = usernameRef.current.value;
       const password = passwordRef.current.value;
-      console.log(`Username: ${username}, Password: ${password}`);
+
       authContext
         .login(username, password)
         .then(() => {
           // redirect main page
           console.log("Authentication Succesful");
-
-          navigate("/message_page");
+          navigate(`/${username}/rooms`);
         })
         .catch((err) => {
           if (err.message === "Request failed with status code 500") {
-            console.log("Username or Password Incorrect");
+            setError(true);
           } else {
             console.log("don't know");
           }
@@ -35,27 +37,37 @@ const Login = () => {
 
   return (
     <div className="text-center">
-      <div className="bg-zinc-800 h-screen text-white flex flex-col items-center justify-center text-[24px]">
-        <div className="flex flex-col items-center border rounded-lg py-[10rem] px-[3rem]">
-          <div className="flex mb-10">
-            <p className="font-bold text-[40px]">asian</p>
-            <p className="font-bold text-[40px] text-amber-300">convo</p>
-          </div>
+      <div className="bg">
+        <h1 className="text-[30px] mb-5">
+          asian<span className="text-amber-300">convo</span>
+        </h1>
+        <div className="flex flex-col items-center border rounded-lg py-[2rem] px-[1.5rem]">
+          <h1 className="p-10 flex flex-col">
+            <p className="text-[28px] mb-3">Login</p>
+            <p className="text-[12px]">
+              and go text your asian{" "}
+              <span className="text-amber-300">friend</span>.
+            </p>
+          </h1>
+          {error ? (
+            <h1 className="text-red-500 text-[12px] mb-8">
+              Username or Password Incorrect
+            </h1>
+          ) : null}
           <form
             action=""
-            className="flex flex-col text-[20px]"
+            className="flex flex-col text-[16px]"
             onSubmit={handleSubmit}
           >
-            <h1 className="mb-10">Welcome Back !</h1>
             <input
               type="text"
-              className="border-2 border-gray-400 rounded-lg bg-zinc-900 p-2 focus:outline focus:outline-amber-400 mb-10"
+              className="auth-input"
               placeholder="Username"
               ref={usernameRef}
             />
             <input
               type="password"
-              className="border-2 border-gray-400 rounded-lg bg-zinc-900 p-2 focus:outline focus:outline-amber-400 mb-10"
+              className="auth-input"
               placeholder="Password"
               ref={passwordRef}
             />
@@ -67,10 +79,13 @@ const Login = () => {
                 Login
               </button>
             </div>
-            <p className="text-amber-300 mr-auto mt-5">
+          </form>
+          <div className="text-[12px] flex p-10">
+            Don't have an account?
+            <p className="text-amber-300 ml-1">
               <Link to={"/register"}>Register</Link>
             </p>
-          </form>
+          </div>
         </div>
       </div>
     </div>

@@ -1,20 +1,21 @@
 import axios from "axios";
+import io from "socket.io-client";
 
 import React, { useContext } from "react";
+import { APIContextValue } from "./APIContext";
 
-class AuthenticationContextProperties {
-  public authenticated: boolean;
-  constructor() {
-    this.authenticated = false;
+class AuthContextValue extends APIContextValue {
+  constructor(public readonly IP: string = "http://192.168.2.38:5050") {
+    super(IP);
   }
+
   register = async (username: string, password: string) => {
     const body = {
       username: username,
       password: password,
     };
 
-    const res = await axios.post("http://localhost:5000/auth/register", body);
-    console.log(res);
+    const res = await this.axios.post(`${this.IP}/auth/register`, body);
   };
   login = async (username: string, password: string) => {
     const body = {
@@ -22,35 +23,26 @@ class AuthenticationContextProperties {
       password: password,
     };
 
-    const res = await axios.post("http://localhost:5000/auth/login", body);
-    console.log(res);
-    this.authenticated = true;
+    const res = await this.axios.post(`${this.IP}/auth/login`, body);
   };
-  logout = () => {
-    axios.post("http://localhost:5000/auth/logout").then((res) => {
-      console.log(res);
-      this.authenticated = false;
-    });
+  logout = async () => {
+    await this.axios.post(`${this.IP}/auth/logout`);
+  };
+
+  isAuthenticated = async () => {
+    return await this.axios.get(`${this.IP}/auth`);
   };
 }
 
-interface AuthenticationProviderProperties {
-  children: React.ReactNode;
-}
-
-const defaultValue = new AuthenticationContextProperties();
-
-const AuthenticationContext =
-  React.createContext<AuthenticationContextProperties>(defaultValue);
-
-export const useAuthentication = () => useContext(AuthenticationContext);
-
-export const AuthenticationProvider = (
-  props: AuthenticationProviderProperties
-) => {
+const defaultValue = new AuthContextValue();
+const AuthContext = React.createContext<AuthContextValue>(defaultValue);
+const useAuth = () => useContext(AuthContext);
+const AuthProvider = (props: { children: React.ReactNode }) => {
   return (
-    <AuthenticationContext.Provider value={defaultValue}>
+    <AuthContext.Provider value={defaultValue}>
       {props.children}
-    </AuthenticationContext.Provider>
+    </AuthContext.Provider>
   );
 };
+
+export { AuthProvider, useAuth };
