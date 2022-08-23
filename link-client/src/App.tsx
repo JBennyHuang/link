@@ -10,6 +10,8 @@ import MainPage from "./page/main_page";
 import RoomsPage from "./page/rooms_page";
 import FriendsPage from "./page/friends_page";
 import SettingPage from "./page/setting.page";
+import RoomMenu from "./page/room_menu";
+import Friends from "./components/friend_components/friends";
 
 function App() {
   return (
@@ -18,7 +20,10 @@ function App() {
         <APIProvider>
           <AuthProvider>
             <Routes>
-              <Route path="/" element={<MainPage />}></Route>
+              <Route
+                path="/test"
+                element={<RoomMenu isOpen={true} closeModal={() => null} />}
+              ></Route>
               <Route path="/login" element={<Login />}></Route>
               <Route path="/register" element={<Register />}></Route>
               <Route path="/:user/rooms/" element={<RoomsPage />}></Route>

@@ -1,14 +1,16 @@
 import { JSONSchemaType } from "ajv";
 
 interface FriendAddBody {
-  name: string;
+  user1: string;
+  user2: string;
 }
 
 const FriendAddBodySchema: JSONSchemaType<FriendAddBody> = {
   type: "object",
-  required: ["name"],
+  required: ["user1", "user2"],
   properties: {
-    name: { type: "string" },
+    user1: { type: "string" },
+    user2: { type: "string" },
   },
 };
 

@@ -74,7 +74,7 @@ const Login = () => {
             <div className="flex justify-between">
               <button
                 type="submit"
-                className="bg-amber-400 w-full text-amber-100 rounded-lg py-1 px-3"
+                className="bg-amber-400 w-full text-amber-50 rounded-lg py-1 px-3"
               >
                 Login
               </button>

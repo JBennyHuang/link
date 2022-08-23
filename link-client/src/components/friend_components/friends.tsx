@@ -7,6 +7,7 @@ import { useAPIs } from "../../context/APIContext";
 
 import { Link } from "react-router-dom";
 
+import FriendMenu from "./friend_menu";
 import SearchBar from "../search_bar";
 import ListIcon from "../list_icon";
 
@@ -15,7 +16,7 @@ const Friends = () => {
   const APIContext = useAPIs();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [friends, setFriends] = useState<
-    Array<{ name: string; name2: string; uuid: string }>
+    Array<{ recipients: { user1: string; user2: string }; uuid: string }>
   >([]);
 
   const frontEndFriends: JSX.Element[] = [];
@@ -34,17 +35,21 @@ const Friends = () => {
         to={`/${params.user}/friends/${friends[i].uuid}`}
       >
         <ListIcon
-          name={friends[i].name}
+          recipient={friends[i].recipients}
+          name={null}
           uuid={friends[i].uuid}
-          name2={friends[i].name2}
         ></ListIcon>
       </Link>
     );
   }
-  console.log(friends);
 
   return (
     <>
+      <FriendMenu
+        isOpen={isOpen}
+        closeModal={() => setIsOpen(false)}
+      ></FriendMenu>
+
       <div className="w-[80%] right-0 top-0 bg-zinc-800 h-screen">
         <div className="flex items-center px-5 shadow-lg h-[8%] 2xl:h-[5%] bg-zinc-900">
           <SearchBar placeholder="Search users..." data="user" />
@@ -52,7 +57,10 @@ const Friends = () => {
         <div className="front-list">
           {frontEndFriends}
           <div className="">
-            <MdAdd className="add-icon mt-10 text-[30px]" />
+            <MdAdd
+              className="add-icon mt-10 text-[30px]"
+              onClick={() => setIsOpen(true)}
+            />
           </div>
         </div>
 

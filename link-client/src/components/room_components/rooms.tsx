@@ -28,7 +28,7 @@ const Rooms = () => {
   for (let i = 0; i < rooms.length; i++) {
     frontEndRooms.push(
       <Link key={i} to={`/${params.user}/rooms/${rooms[i].uuid}`}>
-        <ListIcon name={rooms[i].name} name2={""} uuid={rooms[i].uuid} />
+        <ListIcon recipient={null} name={rooms[i].name} uuid={rooms[i].uuid} />
       </Link>
     );
   }

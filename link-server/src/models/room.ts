@@ -13,6 +13,8 @@ class Room extends Model {
   declare id: CreationOptional<number>;
   declare uuid: string;
   declare name: string;
+  declare user1: null;
+  declare user2: null;
 
   declare Users: User[];
   declare addUser: BelongsToManyAddAssociationMixin<User, number>;

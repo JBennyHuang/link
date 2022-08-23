@@ -1,20 +1,28 @@
 import { useParams } from "react-router-dom";
 
 interface ListIconProperties {
-  name: string | undefined;
+  recipient: { user1: string; user2: string } | null;
+  name: string | null;
   uuid: string;
-  name2: string;
 }
 
 const ListIcon = (props: ListIconProperties) => {
   const params = useParams();
 
-  let name = props.name;
+  let name = "sd";
 
-  if (params.user === name) {
-    name = props.name2;
+  if (props.recipient) {
+    const user1 = props.recipient.user1;
+    const user2 = props.recipient.user2;
+    if (params.user === user1) {
+      name = user2;
+    } else {
+      name = user1;
+    }
   }
-  console.log(props.name2);
+  if (props.name) {
+    name = props.name;
+  }
 
   return (
     <div

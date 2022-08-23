@@ -71,8 +71,6 @@ const FriendContent = () => {
 
   // scroll down to the last message after every sent message
 
-  console.log(messages);
-
   useEffect(() => {
     lastMessageRef.current?.scrollIntoView({
       behavior: "smooth",

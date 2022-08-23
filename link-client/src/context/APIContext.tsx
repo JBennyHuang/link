@@ -34,8 +34,11 @@ class APIContextValue {
     return await this.axios.get(`${this.IP}/user/friends`);
   };
 
-  addFriends = async (name: string) => {
-    return await this.axios.post(`${this.IP}/friend/add`, { name: name });
+  addFriends = async (user1: string, user2: string) => {
+    return await this.axios.post(`${this.IP}/friend/add`, {
+      user1: user1,
+      user2: user2,
+    });
   };
 
   getMessages = async (uuid: string) => {
