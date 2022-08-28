@@ -13,8 +13,7 @@ class Room extends Model {
   declare id: CreationOptional<number>;
   declare uuid: string;
   declare name: string;
-  declare user1: null;
-  declare user2: null;
+  declare owner: string;
 
   declare Users: User[];
   declare addUser: BelongsToManyAddAssociationMixin<User, number>;
@@ -27,12 +26,16 @@ class Room extends Model {
 const initializeRoomModel = (sequelize: Sequelize) => {
   return Room.init(
     {
+      owner: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
       },
       uuid: {
-        type: DataTypes.STRING,
+        type: DataTypes.UUID,
         allowNull: false,
         unique: true,
       },

@@ -1,15 +1,17 @@
+import { MouseEvent } from "react";
 import { useParams } from "react-router-dom";
 
 interface ListIconProperties {
-  recipient: { user1: string; user2: string } | null;
   name: string | null;
   uuid: string;
+  recipient: { user1: string; user2: string } | null;
+  onContextMenu: (event: MouseEvent<HTMLDivElement>) => void;
 }
 
 const ListIcon = (props: ListIconProperties) => {
   const params = useParams();
 
-  let name = "sd";
+  let name = "";
 
   if (props.recipient) {
     const user1 = props.recipient.user1;
@@ -26,10 +28,12 @@ const ListIcon = (props: ListIconProperties) => {
 
   return (
     <div
+      id={props.uuid}
+      onContextMenu={props.onContextMenu}
       className={
         params.uuid === props.uuid
-          ? "list-icon bg-zinc-900"
-          : "list-icon 2xl:text-[20px] hover:bg-zinc-600"
+          ? "list-icon bg-zinc-600"
+          : "list-icon 2xl:text-[20px] hover:bg-zinc-700"
       }
     >
       <div className="flex items-center">

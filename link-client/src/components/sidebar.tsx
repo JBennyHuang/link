@@ -34,7 +34,7 @@ const Sidebar = (props: SidebarProperties) => {
 
   return (
     <div
-      className="top-0 left-0 h-[90%] xl:h-screen w-[30%] xl:w-[20%] m-0
+      className="top-0 left-0 h-[90%] xl:h-screen w-[30%] xl:w-[25%] m-0
                  flex flex-col text-white z-10 items-center
                  border-r-2 border-zinc-800
                  

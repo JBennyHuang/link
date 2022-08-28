@@ -48,7 +48,6 @@ const RoomContent = () => {
   };
 
   const addMessage = (message: MessageType) => {
-    console.log(message.username);
     setMessages((messages) => [...messages, message]);
   };
 
@@ -93,7 +92,7 @@ const RoomContent = () => {
   if (params.uuid) {
     return (
       <ContentWrap>
-        <div className="h-[80%] w-full flex flex-col p-5 overflow-y-auto z-20">
+        <div className="h-[80%] xl:h-[90%] 2xl:h-[92%] w-full flex flex-col p-5 overflow-y-auto z-20">
           {frontEndMessages}
         </div>
         <MessageBar

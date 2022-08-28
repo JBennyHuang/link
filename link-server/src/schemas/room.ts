@@ -10,13 +10,27 @@ interface RoomLeaveBody {
 
 interface RoomCreateBody {
   name: string;
+  owner: string;
 }
+
+interface RoomGetQuery {
+  user: string;
+}
+
+const RoomGetQuerySchema: JSONSchemaType<RoomGetQuery> = {
+  type: "object",
+  required: ["user"],
+  properties: {
+    user: { type: "string" },
+  },
+};
 
 const RoomCreateBodySchema: JSONSchemaType<RoomCreateBody> = {
   type: "object",
-  required: ["name"],
+  required: ["name", "owner"],
   properties: {
     name: { type: "string" },
+    owner: { type: "string" },
   },
 };
 
@@ -36,4 +50,4 @@ const RoomLeaveBodySchema: JSONSchemaType<RoomLeaveBody> = {
   },
 };
 
-export { RoomJoinBodySchema, RoomLeaveBodySchema, RoomCreateBodySchema };
+export { RoomJoinBodySchema, RoomLeaveBodySchema, RoomCreateBodySchema, RoomGetQuerySchema };

@@ -3,6 +3,7 @@ import { Router, Request, Response } from "express";
 import { Op } from "sequelize";
 import { UserGetQuerySchema, UserGetQuery } from "../schemas/user";
 import { isValidQuery } from "../middlewares/validation";
+import { RoomGetQuerySchema } from "../schemas/room";
 import { TypedRequest, TypedResponse } from "../types/express";
 import { isAuthenticated } from "../middlewares/auth";
 
@@ -35,7 +36,7 @@ router.get("/rooms", isAuthenticated, async (req: Request, res: Response) => {
 
   if (!user) return res.status(404).send({ error: "UserNotFound" });
 
-  return res.status(200).json(user.Rooms.map((room) => ({ name: room.name, uuid: room.uuid })));
+  return res.status(200).json(user.Rooms.map((room) => ({ name: room.name, uuid: room.uuid, owner: room.owner })));
 });
 
 router.get("/friends", isAuthenticated, async (req: Request, res: Response) => {

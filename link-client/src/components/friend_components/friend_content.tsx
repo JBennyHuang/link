@@ -55,7 +55,6 @@ const FriendContent = () => {
   // get messages after clicking a room, and after sending a message
 
   useEffect(() => {
-    lastMessageRef.current?.scrollIntoView();
     if (params.uuid) {
       APIContext.getMessages(params.uuid).then((value) => {
         setMessages(value.data);
@@ -92,7 +91,7 @@ const FriendContent = () => {
   if (params.uuid) {
     return (
       <ContentWrap>
-        <div className="h-[80%] xl:h-[90%] 2xl:h-[92%] w-full flex flex-col p-5 overflow-y-auto z-20">
+        <div className="h-[80%] xl:h-[90%] 2xl:h-[92%] w-full flex flex-col p-5 overflow-y-auto z-20 ">
           {frontEndMessages}
         </div>
         <MessageBar

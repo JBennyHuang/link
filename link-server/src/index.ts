@@ -95,6 +95,7 @@ io.on("connection", (socket: Socket) => {
 initializeSequelize((process.env.DIALECT as Dialect) || "sqlite", process.env.STORAGE || ":memory:").then(() => {
   const host = process.env.HOST;
   const port = process.env.PORT || "3000";
+  console.log(process.env.IP);
 
   Message.afterCreate(async (message) => {
     const user = await User.findOne({ where: { username: message.username } });
@@ -119,6 +120,22 @@ initializeSequelize((process.env.DIALECT as Dialect) || "sqlite", process.env.ST
     recipient.addMessage(message);
 
     io.emit(`message/${message.uuid}`, message);
+  });
+
+  Room.afterCreate(async (room) => {
+    const user = await User.findOne({ where: { username: room.owner } });
+
+    if (!user) return;
+
+    io.emit(`create/room/${user.username}`, room);
+  });
+
+  Room.afterDestroy(async (room) => {
+    const user = await User.findOne({ where: { username: room.owner } });
+
+    if (!user) return;
+
+    io.emit(`delete/room/${user.username}`, room);
   });
 
   server.listen(parseInt(port), host, () => {

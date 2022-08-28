@@ -5,17 +5,16 @@ import React, { useContext } from "react";
 class APIContextValue {
   axios: AxiosInstance;
 
-  constructor(
-    public readonly IP: string = "http://192.168.2.38:5050",
-    public roomAlert: number = 0
-  ) {
+  constructor(public readonly IP: string = "http://192.168.2.38:5050") {
     this.axios = axios.create({
       withCredentials: true,
     });
   }
-  createRoom = async (name: string) => {
-    await this.axios.post(`${this.IP}/room/create`, { name: name });
-    this.roomAlert += 1;
+  createRoom = async (name: string, owner: string) => {
+    return await this.axios.post(`${this.IP}/room/create`, {
+      name: name,
+      owner: owner,
+    });
   };
 
   joinRoom = async (uuid: string) => {
@@ -24,6 +23,10 @@ class APIContextValue {
 
   leaveRoom = async (uuid: string) => {
     await this.axios.post(`${this.IP}/room/leave`, { uuid: uuid });
+  };
+
+  deleteRoom = async (uuid: string) => {
+    await this.axios.post(`${this.IP}/room/delete`, { uuid: uuid });
   };
 
   getRooms = async () => {

@@ -11,6 +11,7 @@ const Login = () => {
 
   const [error, setError] = useState<boolean>(false);
 
+  console.log(authContext.IP);
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
@@ -23,13 +24,13 @@ const Login = () => {
         .then(() => {
           // redirect main page
           console.log("Authentication Succesful");
-          navigate(`/${username}/rooms`);
+          navigate(`/${username}/friends`);
         })
         .catch((err) => {
           if (err.message === "Request failed with status code 500") {
             setError(true);
           } else {
-            console.log("don't know");
+            console.log(err.message);
           }
         });
     }
@@ -41,7 +42,7 @@ const Login = () => {
         <h1 className="text-[30px] mb-5">
           asian<span className="text-amber-300">convo</span>
         </h1>
-        <div className="flex flex-col items-center border rounded-lg py-[2rem] px-[1.5rem]">
+        <div className="flex flex-col items-center shadow-lg rounded-2xl py-[2rem] px-[1.5rem] bg-[#2f2f34]">
           <h1 className="p-10 flex flex-col">
             <p className="text-[28px] mb-3">Login</p>
             <p className="text-[12px]">

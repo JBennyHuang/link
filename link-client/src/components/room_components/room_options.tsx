@@ -13,8 +13,10 @@ const RoomOptions = (props: RoomOptionsProperties) => {
       <button className="close-modal" onClick={props.closeModal}>
         <IoClose size={25} />
       </button>
-
-      <div className="flex flex-col items-center text-white">
+      <div className="flex mb-5">
+        Create or Join a <p className="text-amber-400 ml-[6px]">Room</p>
+      </div>
+      <div className="flex flex-col items-center text-white text-[16px] w-full">
         <button
           className="room-options-button"
           onClick={() => props.setCreateOption(true)}

@@ -48,7 +48,7 @@ const FriendMenu = (props: FriendMenuProperties) => {
             <IoClose size={25} />
           </button>
           <div className="flex">
-            Add a <p className="text-amber-300 ml-2">friend</p>
+            Add a <p className="text-amber-300 ml-[6px]">friend</p>
           </div>
           {error === "already-friend-error" ? (
             <h1 className="text-red-500 text-[12px] my-2">
@@ -72,7 +72,11 @@ const FriendMenu = (props: FriendMenuProperties) => {
               placeholder="Friend's name"
               ref={friendNameRefInput}
             />
-            <button type="submit" onClick={addFriend} className="button-modal">
+            <button
+              type="submit"
+              onClick={addFriend}
+              className="button-options"
+            >
               Add
             </button>
           </div>

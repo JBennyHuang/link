@@ -41,7 +41,7 @@ const Register = () => {
         <h1 className="text-[30px] mb-5">
           asian<span className="text-amber-300">convo</span>
         </h1>
-        <div className="flex flex-col items-center border rounded-lg py-[2rem] px-[1.5rem]">
+        <div className="flex flex-col items-center bg-[#2f2f34] rounded-2xl shadow-lg py-[2rem] px-[1.5rem]">
           <h1 className="p-10 flex flex-col">
             <p className="text-[28px] mb-3">Register</p>
             <p className="text-[12px]">

@@ -23,7 +23,6 @@ const SearchBarItems = (props: SearchBarItemsProperties) => {
         {props.items}
         <BsThreeDots className="text-zinc-400" size={20} />
       </div>
-      <ContextMenu></ContextMenu>
     </div>
   );
 };

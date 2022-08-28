@@ -18,7 +18,6 @@ router.post("/add", isValidBody(FriendAddBodySchema), isAuthenticated, async (re
   const user2 = req.body.user2;
   const tag = [user1, user2].sort().join("");
   const uuid = uuidv4();
-  console.log(tag);
 
   Friend.create({ tag, user1, user2, uuid }).then(
     (friendRoom) => {

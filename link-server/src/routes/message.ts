@@ -20,7 +20,7 @@ router.get("/", isValidQuery(MessageGetQuerySchema), isAuthenticated, async (req
   } else if (room) {
     recipient = room;
   } else {
-    return res.status(404).send({ error: "UserNotFound" });
+    return res.status(404).send({ error: "UserOrRoomNotFound" });
   }
 
   return res.status(200).json(

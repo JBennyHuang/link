@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import FriendMenu from "./friend_menu";
 import SearchBar from "../search_bar";
 import ListIcon from "../list_icon";
+import ContextMenu from "../context_menu";
 
 const Friends = () => {
   const params = useParams();
@@ -25,7 +26,14 @@ const Friends = () => {
     APIContext.getFriends().then((value) => {
       setFriends(value.data);
     });
-  }, []);
+  }, [friends]);
+
+  const contextMenu = (event: any) => {
+    event.preventDefault();
+    console.log("sd");
+    console.log(event.pageX);
+    console.log(event.pageY);
+  };
 
   for (let i = 0; i < friends.length; i++) {
     frontEndFriends.push(
@@ -35,9 +43,10 @@ const Friends = () => {
         to={`/${params.user}/friends/${friends[i].uuid}`}
       >
         <ListIcon
-          recipient={friends[i].recipients}
           name={null}
           uuid={friends[i].uuid}
+          recipient={friends[i].recipients}
+          onContextMenu={contextMenu}
         ></ListIcon>
       </Link>
     );
@@ -56,11 +65,8 @@ const Friends = () => {
         </div>
         <div className="front-list">
           {frontEndFriends}
-          <div className="">
-            <MdAdd
-              className="add-icon mt-10 text-[30px]"
-              onClick={() => setIsOpen(true)}
-            />
+          <div className="add-icon mt-10">
+            <MdAdd onClick={() => setIsOpen(true)} />
           </div>
         </div>
 

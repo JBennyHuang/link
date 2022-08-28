@@ -20,10 +20,7 @@ function App() {
         <APIProvider>
           <AuthProvider>
             <Routes>
-              <Route
-                path="/test"
-                element={<RoomMenu isOpen={true} closeModal={() => null} />}
-              ></Route>
+              <Route path="/" element={<MainPage />}></Route>
               <Route path="/login" element={<Login />}></Route>
               <Route path="/register" element={<Register />}></Route>
               <Route path="/:user/rooms/" element={<RoomsPage />}></Route>
