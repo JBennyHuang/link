@@ -25,7 +25,10 @@ import { ClassificationType } from "typescript";
 
 dotenv.config();
 
-const corsConfig = { origin: ["http://localhost:3000", "http://192.168.2.38:3000"], credentials: true };
+const corsConfig = {
+  origin: ["http://localhost:3000", "http://192.168.2.38:3000", "http://0.0.0.0:3000"],
+  credentials: true,
+};
 
 const app = express();
 const server = createServer(app);

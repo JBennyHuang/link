@@ -5,7 +5,7 @@ import { io, Socket } from "socket.io-client";
 
 class socketContextValue {
   constructor(
-    public socket: Socket = io("http://192.168.2.38:5050", {
+    public socket: Socket = io("http://0.0.0.:5050", {
       withCredentials: true,
     })
   ) {}

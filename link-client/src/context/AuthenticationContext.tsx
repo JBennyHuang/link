@@ -5,7 +5,7 @@ import React, { useContext } from "react";
 import { APIContextValue } from "./APIContext";
 
 class AuthContextValue extends APIContextValue {
-  constructor(public readonly IP: string = `http://192.168.2.38:5050`) {
+  constructor(public readonly IP: string = `http://0.0.0.0:5050`) {
     super(IP);
   }
 
